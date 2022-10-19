@@ -5,6 +5,8 @@ import { Restaurant } from "../../models";
 interface IRestaurantItem {
   restaurant: Restaurant
 }
+
+const DEFAULT_IMAGE = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant2.jpeg'
 const RestaurantItem = ({ restaurant }: IRestaurantItem) => {
   const navigation = useNavigation<any>();
 
@@ -16,7 +18,7 @@ const RestaurantItem = ({ restaurant }: IRestaurantItem) => {
     <Pressable onPress={onPress} style={styles.restaurantContainer}>
       <Image
         source={{
-          uri: restaurant.image,
+          uri: restaurant.image.startsWith('http') ? restaurant.image : DEFAULT_IMAGE
         }}
         style={styles.image}
       />
@@ -24,13 +26,13 @@ const RestaurantItem = ({ restaurant }: IRestaurantItem) => {
         <View>
           <Text style={styles.title}>{restaurant.name}</Text>
           <Text style={styles.subtitle}>
-            $ {restaurant.deliferyFee.toFixed(1)} &#8226; {restaurant.minDeliveryTime}-
+            $ {restaurant.deliveryFee.toFixed(1)} &#8226; {restaurant.minDeliveryTime}-
             {restaurant.maxDeliveryTime} minutes
           </Text>
         </View>
 
         <View style={styles.rating}>
-          <Text>{restaurant.rating.toFixed(1)}</Text>
+         { (restaurant.rating) && <Text>{restaurant.rating.toFixed(1)}</Text>}
         </View>
       </View>
     </Pressable>

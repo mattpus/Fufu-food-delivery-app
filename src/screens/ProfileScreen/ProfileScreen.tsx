@@ -1,19 +1,54 @@
-import { View, Text, TextInput, StyleSheet, Button, } from "react-native";
+import { View, Text, TextInput, StyleSheet, Button, Alert, } from "react-native";
  import React, { useState } from "react";
  import { SafeAreaView } from "react-native-safe-area-context";
- import { Auth, } from "aws-amplify";
+ import { Auth, DataStore  } from "aws-amplify";
+import { User } from "../../models";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { useNavigation } from "@react-navigation/native";
  
 
  const ProfileScreen = () => {
-   
+   const {dbUser} = useAuthContext();
 
-   const [name, setName] = useState( "");
-   const [address, setAddress] = useState( "");
-   const [lat, setLat] = useState( "0");
-   const [lng, setLng] = useState( "0");
-
+   const navigation = useNavigation();
+   const [name, setName] = useState(dbUser?.name || "");
+   const [address, setAddress] = useState( dbUser?.address ||"");
+   const [lat, setLat] = useState(dbUser?.lat + '' || "0");
+   const [lng, setLng] = useState(dbUser?.lng + "" || "0");
+  const {sub, setDbUser} = useAuthContext()
   
+const onSave = async () => {
+  if(dbUser ) {
+    await updateUser()
+  } else {
+    await createUser()
+  }
+  
+}
+const updateUser = async () => {
 
+  const user = DataStore.save(
+    User.copyOf(dbUser, (updated) => {
+      updated.name = name;
+      updated.address = address;
+      updated.lat = parseFloat(lat); 
+      updated.lng = parseFloat(lng);
+    })
+  )
+  setDbUser(user)
+  navigation.goBack()
+}
+
+const createUser = async () => {
+  try{
+    const user = await DataStore.save( new User({
+      name, address, lat: parseFloat(lat), lng: parseFloat(lat), sub}))
+      setDbUser(user)
+
+  }catch (e) {
+    Alert.alert("ooops!", (e as Error).message)
+  }
+}
    
    return (
      <SafeAreaView>
@@ -43,7 +78,7 @@ import { View, Text, TextInput, StyleSheet, Button, } from "react-native";
          placeholder="Longitude"
          style={styles.input}
        />
-       <Button onPress={() => {}} title="Save" />
+       <Button onPress={onSave} title="Save" />
        <Text
          onPress={() => Auth.signOut()}
          style={{ textAlign: "center", color: "red", margin: 10 }}

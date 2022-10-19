@@ -4,7 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 // import restaurants from "../../assets/data/restaurants.json";
-import { DIsh } from "../../models";
+import { Dish } from "../../models";
 import { DataStore } from "aws-amplify";
 // const dish = restaurants[0].dishes[0];
 
@@ -18,7 +18,7 @@ const id = route.params?.id
 
 console.log("ID", id)
 useEffect(() => {
-  DataStore.query(DIsh, id).then(setDish)
+  DataStore.query(Dish, id).then(setDish)
 },[]);
 
   const onMinus = () => {

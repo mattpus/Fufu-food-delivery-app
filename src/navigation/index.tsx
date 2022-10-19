@@ -26,6 +26,7 @@ import DishDetailsScreen from '../screens/DishDetailsScreen';
 import Basket from '../screens/BasketScreen';
 import OrderDetails from '../screens/OrderDetailsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) =>  {
   return (
@@ -44,9 +45,16 @@ const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) =>  {
 const Stack = createNativeStackNavigator<any>();
 
 const RootNavigator = () => {
+  const {dbUser} = useAuthContext();
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+
+      {dbUser 
+      ? (
       <Stack.Screen name="HomeTabs" component={HomeTabs} />
+      ): (
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      )}
     </Stack.Navigator>
   );
 };

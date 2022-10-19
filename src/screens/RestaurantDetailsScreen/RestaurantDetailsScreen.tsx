@@ -7,7 +7,7 @@ import { StyleSheet } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { DataStore } from "aws-amplify";
-import { Restaurant, DIsh } from "../../models";
+import { Restaurant, Dish } from "../../models";
 
 
 // const restaurant = restaurants[0];
@@ -24,7 +24,7 @@ const RestaurantDetailsPage = () => {
   useEffect(() => {
 DataStore.query(Restaurant, id).then(setRestaurant)
 DataStore
-.query(DIsh, (dish) => dish.restaurantID('eq', id))
+.query(Dish, (dish) => dish.restaurantID('eq', id))
 .then(setDishes)
 
   },[])
