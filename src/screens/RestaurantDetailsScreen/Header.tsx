@@ -1,7 +1,8 @@
 import { View, Text, Image } from "react-native";
 import { StyleSheet } from "react-native";
+import { Restaurant } from "../../models";
 
-const RestaurantHeader = ({ restaurant }) => {
+const RestaurantHeader = ({ restaurant }: {restaurant: Restaurant}) => {
   return (
     <View style={styles.page}>
       <Image source={{ uri: restaurant.image }} style={styles.image} />
@@ -9,7 +10,7 @@ const RestaurantHeader = ({ restaurant }) => {
       <View style={styles.container}>
         <Text style={styles.title}>{restaurant.name}</Text>
         <Text style={styles.subtitle}>
-          $ {restaurant.deliveryFee} &#8226; {restaurant.minDeliveryTime}-
+          $ {restaurant.deliferyFee.toFixed(1)} &#8226; {restaurant.minDeliveryTime}-
           {restaurant.maxDeliveryTime} minutes
         </Text>
 

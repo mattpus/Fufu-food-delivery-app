@@ -25,6 +25,7 @@ import RestaurantDetailsScreen from '../screens/RestaurantDetailsScreen';
 import DishDetailsScreen from '../screens/DishDetailsScreen';
 import Basket from '../screens/BasketScreen';
 import OrderDetails from '../screens/OrderDetailsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) =>  {
   return (
@@ -76,7 +77,7 @@ const HomeTabs = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={OrdersScreen}
+        component={ProfileScreen}
         options={{
           
           tabBarIcon: ({ color }) => (
@@ -94,7 +95,7 @@ const HomeStackNavigator = () => {
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen name="Restaurants" component={HomeScreen} />
-      <HomeStack.Screen name="Restaurant" component={RestaurantDetailsScreen} />
+      <HomeStack.Screen name="Restaurant" component={RestaurantDetailsScreen} options={{headerShown: false}} />
       <HomeStack.Screen name="Dish" component={DishDetailsScreen} />
       <HomeStack.Screen name="Basket" component={Basket} />
     </HomeStack.Navigator>

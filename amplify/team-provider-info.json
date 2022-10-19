@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fufu-staging-82713-authRole",
+      "UnauthRoleArn": "arn:aws:iam::743328087393:role/amplify-fufu-staging-82713-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::743328087393:role/amplify-fufu-staging-82713-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-fufu-staging-82713-deployment",
+      "UnauthRoleName": "amplify-fufu-staging-82713-unauthRole",
+      "StackName": "amplify-fufu-staging-82713",
+      "StackId": "arn:aws:cloudformation:eu-central-1:743328087393:stack/amplify-fufu-staging-82713/d5aac030-4f87-11ed-a046-064b80f8fb30",
+      "AmplifyAppId": "d1dncegbvusnjp"
+    },
+    "categories": {
+      "auth": {
+        "Fufu": {}
+      }
+    }
+  }
+}
